@@ -39,6 +39,7 @@ public class OptimisticLockException extends EclipseLinkException {
     public final static int UNWRAPPING_OBJECT_DELETED_SINCE_LAST_READ = 5009;
     public final static int OBJECT_CHANGED_SINCE_LAST_MERGE = 5010;
     public final static int STATEMENT_NOT_EXECUTED_IN_BATCH = 5011;
+    public final static int OBJECT_CHANGED_SINCE_LAST_READ_WHEN_QUERYING = 5012;
 
     /**
      * INTERNAL:
@@ -156,7 +157,14 @@ public class OptimisticLockException extends EclipseLinkException {
         return optimisticLockException;
     }
 
+    public static OptimisticLockException objectChangedSinceLastReadWhenQuerying(Object object) {
+        OptimisticLockException optimisticLockException = new OptimisticLockException();
+        optimisticLockException.setErrorCode(OBJECT_CHANGED_SINCE_LAST_READ_WHEN_QUERYING);
+        return optimisticLockException;
+    }
+
     public static OptimisticLockException unwrappingObjectDeletedSinceLastRead(Vector pkVector, String className) {
+
         Object[] args = { pkVector, className };
 
         OptimisticLockException optimisticLockException = new OptimisticLockException(ExceptionMessageGenerator.buildMessage(OptimisticLockException.class, UNWRAPPING_OBJECT_DELETED_SINCE_LAST_READ, args));
